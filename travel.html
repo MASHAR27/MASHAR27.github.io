@@ -10,41 +10,160 @@
   <body>
     <div id="map" style="height: 500px; width: 100%"></div>
 
-    <script>
-      var map = L.map("map").setView([20, 0], 2);
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Visited Countries Map</title>
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet/dist/leaflet.css"
+        />
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+      </head>
+      <body>
+        <h1>Countries I Have Visited</h1>
+        <div id="map" style="height: 500px; width: 100%"></div>
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "© OpenStreetMap contributors",
-      }).addTo(map);
+        <script>
+          var map = L.map("map").setView([20, 0], 2);
 
-      var visitedCountries = [
-        { lat: 23.588, lng: 58.3829, title: "Oman" },
-        { lat: 25.276987, lng: 55.296249, title: "United Arab Emirates" },
-        { lat: 48.8566, lng: 2.3522, title: "France" },
-        { lat: 50.8503, lng: 4.3517, title: "Belgium" },
-        { lat: 52.3676, lng: 4.9041, title: "Netherlands" },
-        { lat: 52.52, lng: 13.405, title: "Germany" },
-        { lat: 48.2082, lng: 16.3738, title: "Austria" },
-        { lat: 46.8182, lng: 8.2275, title: "Switzerland" },
-        { lat: 41.9028, lng: 12.4964, title: "Italy" },
-        { lat: 41.9029, lng: 12.4534, title: "Vatican City" },
-        { lat: 13.7563, lng: 100.5018, title: "Thailand" },
-        { lat: 3.139, lng: 101.6869, title: "Malaysia" },
-        { lat: 1.3521, lng: 103.8198, title: "Singapore" },
-        { lat: 6.9271, lng: 79.8612, title: "Sri Lanka" },
-        { lat: 42.3154, lng: 43.3569, title: "Georgia" },
-        { lat: 56.1304, lng: -106.3468, title: "Canada" },
-        { lat: 38.9637, lng: 35.2433, title: "Turkey" },
-        { lat: 37.0902, lng: -95.7129, title: "United States" },
-        { lat: 30.3753, lng: 69.3451, title: "Pakistan" },
-      ];
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "© OpenStreetMap contributors",
+          }).addTo(map);
 
-      visitedCountries.forEach(function (country) {
-        L.marker([country.lat, country.lng])
-          .addTo(map)
-          .bindPopup("Visited Country: " + country.title)
-          .openPopup();
-      });
-    </script>
+          var visitedCountries = [
+            {
+              lat: 23.588,
+              lng: 58.3829,
+              title: "Oman",
+              image: "link_to_oman_image.jpg",
+            },
+            {
+              lat: 25.276987,
+              lng: 55.296249,
+              title: "United Arab Emirates",
+              image: "link_to_uae_image.jpg",
+            },
+            {
+              lat: 48.8566,
+              lng: 2.3522,
+              title: "France",
+              image: "link_to_france_image.jpg",
+            },
+            {
+              lat: 50.8503,
+              lng: 4.3517,
+              title: "Belgium",
+              image: "link_to_belgium_image.jpg",
+            },
+            {
+              lat: 52.3676,
+              lng: 4.9041,
+              title: "Netherlands",
+              image: "link_to_netherlands_image.jpg",
+            },
+            {
+              lat: 52.52,
+              lng: 13.405,
+              title: "Germany",
+              image: "link_to_germany_image.jpg",
+            },
+            {
+              lat: 48.2082,
+              lng: 16.3738,
+              title: "Austria",
+              image: "link_to_austria_image.jpg",
+            },
+            {
+              lat: 46.8182,
+              lng: 8.2275,
+              title: "Switzerland",
+              image: "link_to_switzerland_image.jpg",
+            },
+            {
+              lat: 41.9028,
+              lng: 12.4964,
+              title: "Italy",
+              image: "link_to_italy_image.jpg",
+            },
+            {
+              lat: 41.9029,
+              lng: 12.4534,
+              title: "Vatican City",
+              image: "link_to_vatican_city_image.jpg",
+            },
+            {
+              lat: 13.7563,
+              lng: 100.5018,
+              title: "Thailand",
+              image: "link_to_thailand_image.jpg",
+            },
+            {
+              lat: 3.139,
+              lng: 101.6869,
+              title: "Malaysia",
+              image: "link_to_malaysia_image.jpg",
+            },
+            {
+              lat: 1.3521,
+              lng: 103.8198,
+              title: "Singapore",
+              image: "Singaporepic.jpg",
+            },
+            {
+              lat: 6.9271,
+              lng: 79.8612,
+              title: "Sri Lanka",
+              image: "link_to_sri_lanka_image.jpg",
+            },
+            {
+              lat: 42.3154,
+              lng: 43.3569,
+              title: "Georgia",
+              image: "link_to_georgia_image.jpg",
+            },
+            {
+              lat: 56.1304,
+              lng: -106.3468,
+              title: "Canada",
+              image: "can.jpg",
+            },
+            {
+              lat: 38.9637,
+              lng: 35.2433,
+              title: "Turkey",
+              image: "TKY.jpg",
+            },
+            {
+              lat: 37.0902,
+              lng: -95.7129,
+              title: "United States",
+              image: "link_to_usa_image.jpg",
+            },
+            {
+              lat: 30.3753,
+              lng: 69.3451,
+              title: "Pakistan",
+              image: "link_to_pakistan_image.jpg",
+            },
+          ];
+
+          visitedCountries.forEach(function (country) {
+            var popupContent =
+              "<h3>" +
+              country.title +
+              "</h3>" +
+              '<img src="' +
+              country.image +
+              '" alt="' +
+              country.title +
+              ' image" style="width:100%;height:auto;">';
+            L.marker([country.lat, country.lng])
+              .addTo(map)
+              .bindPopup(popupContent);
+          });
+        </script>
+      </body>
+    </html>
   </body>
 </html>
