@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  </head>
+  <body>
+    <div id="map" style="height: 500px; width: 100%"></div>
+
+    <script>
+      var map = L.map("map").setView([20, 0], 2);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+      }).addTo(map);
+
+      var visitedCountries = [
+        { lat: 23.588, lng: 58.3829, title: "Oman" },
+        { lat: 25.276987, lng: 55.296249, title: "United Arab Emirates" },
+        { lat: 48.8566, lng: 2.3522, title: "France" },
+        { lat: 50.8503, lng: 4.3517, title: "Belgium" },
+        { lat: 52.3676, lng: 4.9041, title: "Netherlands" },
+        { lat: 52.52, lng: 13.405, title: "Germany" },
+        { lat: 48.2082, lng: 16.3738, title: "Austria" },
+        { lat: 46.8182, lng: 8.2275, title: "Switzerland" },
+        { lat: 41.9028, lng: 12.4964, title: "Italy" },
+        { lat: 41.9029, lng: 12.4534, title: "Vatican City" },
+        { lat: 13.7563, lng: 100.5018, title: "Thailand" },
+        { lat: 3.139, lng: 101.6869, title: "Malaysia" },
+        { lat: 1.3521, lng: 103.8198, title: "Singapore" },
+        { lat: 6.9271, lng: 79.8612, title: "Sri Lanka" },
+        { lat: 42.3154, lng: 43.3569, title: "Georgia" },
+        { lat: 56.1304, lng: -106.3468, title: "Canada" },
+        { lat: 38.9637, lng: 35.2433, title: "Turkey" },
+        { lat: 37.0902, lng: -95.7129, title: "United States" },
+        { lat: 30.3753, lng: 69.3451, title: "Pakistan" },
+      ];
+
+      visitedCountries.forEach(function (country) {
+        L.marker([country.lat, country.lng])
+          .addTo(map)
+          .bindPopup("Visited Country: " + country.title)
+          .openPopup();
+      });
+    </script>
+  </body>
+</html>
