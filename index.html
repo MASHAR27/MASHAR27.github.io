@@ -492,6 +492,45 @@
         border-radius: 3px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
       }
+
+      .research-item {
+        margin-bottom: 10px;
+      }
+      .research-toggle {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 1em;
+        font-weight: bold;
+        padding: 0;
+        outline: none;
+        transition: color 0.3s;
+      }
+      .research-toggle .arrow {
+        display: inline-block;
+        margin-right: 8px;
+        transition: transform 0.3s;
+        font-size: 1.1em;
+      }
+      .research-toggle.open .arrow {
+        transform: rotate(90deg);
+      }
+      .research-details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-left: 24px;
+        color: #222;
+        font-weight: normal;
+        font-size: 0.98em;
+      }
+      .research-details.open {
+        max-height: 120px;
+        margin-bottom: 8px;
+      }
     </style>
   </head>
   <body>
@@ -640,8 +679,8 @@
                 scholarship recognizes exceptional academic achievement.
                 Recipients are selected based on outstanding academic
                 performance and potential. This prestigious award is reserved
-                for the University of Alberta’s most distinguished applicants
-                who exemplify the institution’s core values of learning and
+                for the University of Alberta's most distinguished applicants
+                who exemplify the institution's core values of learning and
                 discovery.
               </div>
             </div>
@@ -664,7 +703,7 @@
               </button>
               <div class="award-details">
                 The Tuum Est Student Initiative Fund was established by the
-                Associate Vice President, Students portfolio at UBC’s Okanagan
+                Associate Vice President, Students portfolio at UBC's Okanagan
                 campus to provide financial support for student initiatives,
                 conferences, and competitions.
               </div>
@@ -747,13 +786,81 @@
           </div>
 
           <h3>Research Experience:</h3>
-          <ul>
-            <li>
-              Undergraduate Research Assistant at CRN Lab, UBC – Worked on
-              computational neuroscience projects involving data analysis and
-              visualization (2023-2024).
-            </li>
-          </ul>
+
+          <div class="research-item">
+            <button class="research-toggle" type="button">
+              <span class="arrow">▶</span>Honors Research Project (COSC 499)
+              <img src="ubc-logo.png" alt="UBC Logo" class="award-uni-logo" />
+            </button>
+            <div class="research-details">
+              Honors Research Project – Impact of Gamification on Student
+              Engagement (NuTeach App) Completed under the supervision of Dr.
+              Abdallah Mohammed | UBC Okanagan Conducted an honors research
+              project examining the influence of the NuTeach app on student
+              engagement and academic performance in a first-year Computer
+              Science course (COSC 121). Responsibilities included designing and
+              administering surveys, collecting and analyzing student
+              interaction data, and evaluating the effectiveness of gamification
+              features—such as bonus points, coin rewards, and deadline
+              extensions—on motivation and learning outcomes. Presented findings
+              at the CMPS Undergraduate Research Conference in April 2025,
+              followed by additional data analysis to determine the most popular
+              and impactful gamification features based on student engagement.
+            </div>
+          </div>
+
+          <div class="research-item">
+            <button class="research-toggle" type="button">
+              <span class="arrow">▶</span>Undergraduate Research Assistant at
+              CRN Lab, UBC
+              <img src="ubc-logo.png" alt="UBC Logo" class="award-uni-logo" />
+            </button>
+            <div class="research-details">
+              Research Assistant – Immersive Technologies (NSERC CREATE CITech
+              Program) May 2024 – September 2024 | Kelowna, BC | On-site
+              Selected to join the inaugural NSERC CREATE specialization in
+              Immersive Technologies (CITech) at UBC Okanagan, working under the
+              supervision of Dr. Abbas Milani. Contributed to research involving
+              advanced visualization tools such as augmented reality (AR),
+              virtual reality (VR), and data-driven interfaces. Developed and
+              refined skills in software development, hardware integration, and
+              image segmentation. This role provided hands-on experience in
+              bridging immersive technology with applied research.
+            </div>
+          </div>
+
+          <div class="research-item">
+            <button class="research-toggle" type="button">
+              <span class="arrow">▶</span>Undergraduate Research Assistant –
+              PLACE Lab, UBC Vancouver
+              <img src="ubc-logo.png" alt="UBC Logo" class="award-uni-logo" />
+            </button>
+            <div class="research-details">
+              September 2024 – January 2025 | Vancouver, BC | Hybrid Serving as
+              a Software Research Assistant under the supervision of Madison
+              Lore and Dr. Holly Caggiano in the PLACE (Planning for Climate and
+              Environmental Justice) Lab at UBC Vancouver. Contributing to
+              research projects at the intersection of software development and
+              environmental planning, with a focus on building tools and systems
+              that support climate and community resilience initiatives.
+            </div>
+          </div>
+
+          <div class="research-item">
+            <button class="research-toggle" type="button">
+              <span class="arrow">▶</span>Undergraduate Research Assistant
+              <img src="ubc-logo.png" alt="UBC Logo" class="award-uni-logo" />
+            </button>
+            <div class="research-details">
+              March 2023 – June 2023 | Remote Conducted data-driven research
+              under the supervision of Dr. Ifeoma Adaji, analyzing the impact of
+              COVID-19 on public interest in coding. Extracted and queried data
+              from Stack Overflow using SQL, and utilized Python libraries such
+              as NumPy and Seaborn to create insightful visualizations. The
+              project combined data analysis and visualization techniques to
+              uncover trends in programming engagement during the pandemic.
+            </div>
+          </div>
 
           <h3>Papers Published:</h3>
           <ul>
@@ -926,6 +1033,15 @@
 
       // Individual award dropdowns
       document.querySelectorAll(".award-toggle").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const details = this.nextElementSibling;
+          const isOpen = details.classList.toggle("open");
+          this.classList.toggle("open", isOpen);
+        });
+      });
+
+      // Individual research dropdowns
+      document.querySelectorAll(".research-toggle").forEach((btn) => {
         btn.addEventListener("click", function () {
           const details = this.nextElementSibling;
           const isOpen = details.classList.toggle("open");
