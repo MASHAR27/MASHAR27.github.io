@@ -7,129 +7,905 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #1cbcac;
+        background: linear-gradient(-45deg, #2c3e50, #e74c3c, #3498db, #2ecc71);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
         color: #333;
         margin: 0;
         padding: 0;
+        overflow-x: hidden;
       }
 
-      p {
-        text-align: center;
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
         padding: 20px;
       }
 
-      .achievements {
-        color: rgb(26, 207, 71);
-        border: 2px solid gold;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 20px;
-        background-color: #fafad2;
+      .tab-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        text-align: center;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
       }
 
-      #title {
-        color: blue;
-        text-align: center;
+      .tab-menu ul {
+        list-style-type: none;
+        padding: 0;
         margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .tab-menu a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .tab-menu a:hover {
+        background: #1cbcac;
+        color: white !important;
+      }
+
+      section {
+        min-height: 100vh;
+        padding: 80px 20px 20px;
+        scroll-margin-top: 60px;
+      }
+
+      .section-content {
+        background: linear-gradient(
+          -45deg,
+          rgba(255, 255, 255, 0.9),
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.85)
+        );
+        background-size: 400% 400%;
+        animation: sectionGradient 8s ease infinite;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 20px 0;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      @keyframes sectionGradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Different gradient colors for each section */
+      #about.section-content {
+        background: linear-gradient(
+          -45deg,
+          rgba(255, 255, 255, 0.9),
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.85)
+        );
+      }
+
+      #projects.section-content {
+        background: linear-gradient(
+          -45deg,
+          rgba(255, 255, 255, 0.9),
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.85)
+        );
+      }
+
+      #experiences.section-content {
+        background: linear-gradient(
+          -45deg,
+          rgba(255, 255, 255, 0.9),
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.85)
+        );
+      }
+
+      /* Add a subtle border glow effect */
+      .section-content {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .section-content:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+      }
+
+      .profile-section {
+        text-align: center;
       }
 
       .og {
-        display: block;
-        margin: 20px auto;
-        width: 150px;
+        width: 200px;
         border-radius: 50%;
-        border: 2px solid #333;
+        border: 3px solid #333;
+        margin: 20px auto;
       }
 
-      nav ul {
-        list-style-type: none;
-        padding: 0;
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .social-links img {
+        width: 30px;
+        transition: transform 0.3s ease;
+      }
+
+      .social-links img:hover {
+        transform: scale(1.2);
+      }
+
+      .university-logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        margin: 20px 0;
+      }
+
+      .university-logos img {
+        height: 60px;
+        transition: transform 0.3s ease;
+      }
+
+      .university-logos img:hover {
+        transform: scale(1.1);
+      }
+
+      .education-info {
+        margin: 20px 0;
+        line-height: 1.6;
+        color: inherit;
+      }
+
+      .achievements {
+        color: inherit;
+        border: 2px solid gold;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+        background-color: #fafad2;
+      }
+
+      h2 {
+        color: inherit;
         text-align: center;
-      }
-
-      nav ul li {
-        display: inline;
-        margin: 0 10px;
-      }
-
-      nav ul li a {
-        text-decoration: none;
-        color: #333;
-      }
-
-      nav ul li img {
-        width: 24px;
-        vertical-align: middle;
+        margin-bottom: 30px;
       }
 
       h3 {
-        color: crimson;
+        color: inherit;
+        margin-top: 20px;
+      }
+
+      /* Starry dust effect styles */
+      .particle {
+        position: fixed;
+        pointer-events: none;
+        width: 4px;
+        height: 4px;
+        background: #ff3333;
+        border-radius: 50%;
+        opacity: 0.6;
+        animation: fadeOut 1s ease-out forwards;
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 0.6;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0);
+        }
+      }
+
+      /* Text color animation */
+      @keyframes textColorChange {
+        0% {
+          color: #2c3e50;
+        }
+        25% {
+          color: #e74c3c;
+        }
+        50% {
+          color: #3498db;
+        }
+        75% {
+          color: #2ecc71;
+        }
+        100% {
+          color: #2c3e50;
+        }
+      }
+
+      p,
+      h2,
+      h3,
+      li,
+      a:not(.tab-menu a) {
+        animation: textColorChange 10s ease infinite;
+      }
+
+      .achievements h3 {
+        color: inherit;
+        margin-top: 20px;
+      }
+
+      .achievements a {
+        color: inherit;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .achievements a:hover {
+        text-decoration: underline;
+        opacity: 0.8;
+      }
+
+      .social-links a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .social-links a:hover {
+        opacity: 0.8;
+      }
+
+      /* Hackathon Cards Carousel */
+      .hackathon-carousel {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        margin: 20px auto;
+        overflow: hidden;
+      }
+
+      .hackathon-cards {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+
+      .hackathon-card {
+        min-width: 100%;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin: 0 10px;
+      }
+
+      .hackathon-card h4 {
+        color: inherit;
+        margin: 0 0 15px 0;
+        font-size: 1.5em;
+      }
+
+      .hackathon-card p {
+        margin: 10px 0;
+        line-height: 1.6;
+      }
+
+      .hackathon-card img {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .carousel-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: #333;
+        transition: all 0.3s ease;
+        z-index: 2;
+      }
+
+      .carousel-arrow:hover {
+        background: #1cbcac;
+        color: white;
+      }
+
+      .carousel-prev {
+        left: 10px;
+      }
+
+      .carousel-next {
+        right: 10px;
+      }
+
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .carousel-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .carousel-dot.active {
+        background: #1cbcac;
+        transform: scale(1.2);
+      }
+
+      .language-dropdown {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        z-index: 2000;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        padding: 6px 10px;
+        display: flex;
+        align-items: center;
+      }
+      .language-dropdown select {
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+        background: #fff;
+        color: #333;
+        transition: border 0.2s;
+      }
+      .language-dropdown select:focus {
+        border: 1.5px solid #1cbcac;
+        outline: none;
+      }
+
+      .collapsible {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        font-size: 1.15em;
+        background: none;
+        border: none;
+        outline: none;
+        color: inherit;
+        padding: 0;
+        margin: 0 0 10px 0;
+        transition: color 0.3s;
+      }
+      .collapsible .arrow {
+        display: inline-block;
+        margin-right: 8px;
+        transition: transform 0.3s;
+        font-size: 1.2em;
+      }
+      .collapsible.open .arrow {
+        transform: rotate(90deg);
+      }
+      .collapsible-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .collapsible-content.open {
+        max-height: 500px;
+        transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .award-item {
+        margin-bottom: 10px;
+      }
+      .award-toggle {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 1em;
+        font-weight: bold;
+        padding: 0;
+        outline: none;
+        transition: color 0.3s;
+      }
+      .award-toggle .arrow {
+        display: inline-block;
+        margin-right: 8px;
+        transition: transform 0.3s;
+        font-size: 1.1em;
+      }
+      .award-toggle.open .arrow {
+        transform: rotate(90deg);
+      }
+      .award-details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-left: 24px;
+        color: #222;
+        font-weight: normal;
+        font-size: 0.98em;
+      }
+      .award-details.open {
+        max-height: 120px;
+        margin-bottom: 8px;
+      }
+
+      .award-uni-logo {
+        height: 22px;
+        margin-left: 8px;
+        vertical-align: middle;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
       }
     </style>
   </head>
   <body>
-    <p>
-      Greetings! My name is Muhammad Ashar, a young computer scientist who has
-      experience in both hackathons and research and is hungry for more! If you
-      have any work for me, please
-      <a href="mailto:iamashar995@gmail.com">contact me</a>.
-      <img class="og" src="My.JPG" alt="My Picture" />
-    </p>
-
-    <h2>Socials:</h2>
-    <nav>
+    <div class="language-dropdown">
+      <select id="language-select" aria-label="Select language">
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="hi">🇮🇳 हिन्दी</option>
+      </select>
+    </div>
+    <nav class="tab-menu">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li>
-          <a href="https://www.linkedin.com/in/muhammad-ashar-b934b21b4/"
-            ><img src="linkedin.png" alt="LinkedIn icon"
-          /></a>
-        </li>
-        <li>
-          <a href="https://devpost.com/MASHAR27"
-            ><img src="simple-icons--devpost.png" alt="Devpost-icon"
-          /></a>
-        </li>
-        <li>
-          <a href="https://crno.ok.ubc.ca/muhammad-ashar/">CRN Lab Research</a>
-        </li>
-        <li>
-          <a href="https://github.com/MASHAR27"
-            ><img src="githubicon.png" alt="Github Icon" />
-          </a>
-        </li>
-        <li>
-          <a href="travel.html">My Travel Experiences</a>
-        </li>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experiences">Experiences</a></li>
       </ul>
     </nav>
 
-    <div class="achievements">
-      <h2 id="title">My awards and achievements</h2>
-      <h3>Hackathon wins:</h3>
-      <ul>
-        <li>
-          <a href="https://devpost.com/software/zenith-transit"
-            >Zenith Transit</a
-          >
-        </li>
-        <li>
-          <a href="https://devpost.com/software/new-year-meal-cafeteria"
-            >New Year Cafeteria</a
-          >
-        </li>
-      </ul>
-      <h3>Awards and Scholarship:</h3>
-      <ul>
-        <li>University of Alberta International Country Scholarship</li>
-        <li>International Student Scholarship - - issued by UoA</li>
-        <li>
-          DEPUTY VICE-CHANCELLOR SCHOLARSHIP FOR INTERNATIONAL STUDENTS - issued
-          by UBC
-        </li>
-        <li>tuum est - issued by UBC</li>
-        <li>McHacks Travel Bursary - issued by McGill</li>
-      </ul>
+    <div class="container">
+      <section id="about" class="section-content profile-section">
+        <h2 id="about-title">About Me</h2>
+        <img class="og" src="My.JPG" alt="My Picture" />
+        <p>
+          Greetings! My name is Muhammad Ashar, a young computer scientist who
+          has experience in both hackathons and research and is hungry for more!
+          I have completed my Bachelor's in Computer Science (Honours) from the
+          University of British Columbia in 2025 and will be starting my
+          Master's thesis at Concordia University. If you have any work for me,
+          please
+          <a href="mailto:iamashar995@gmail.com">contact me</a>.
+        </p>
+        <div class="education-info">
+          <div class="university-logos">
+            <img src="ubc-logo.png" alt="UBC Logo" />
+            <img src="concordia-logo.webp" alt="Concordia University Logo" />
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/muhammad-ashar-b934b21b4/">
+            <img src="linkedin.png" alt="LinkedIn icon" />
+          </a>
+          <a href="https://devpost.com/MASHAR27">
+            <img src="simple-icons--devpost.png" alt="Devpost-icon" />
+          </a>
+          <a href="https://github.com/MASHAR27">
+            <img src="githubicon.png" alt="Github Icon" />
+          </a>
+          <a href="https://crno.ok.ubc.ca/muhammad-ashar/">CRN Lab Research</a>
+          <a href="travel.html">Travel Experiences</a>
+        </div>
+      </section>
+
+      <section id="projects" class="section-content">
+        <h2>Projects</h2>
+        <div class="achievements">
+          <h3>Hackathon Projects:</h3>
+          <ul>
+            <li>
+              <a href="https://devpost.com/software/zenith-transit"
+                >Zenith Transit</a
+              >
+            </li>
+            <li>
+              <a href="https://devpost.com/software/new-year-meal-cafeteria"
+                >New Year Cafeteria</a
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="experiences" class="section-content">
+        <h2>Experiences, Awards and Papers</h2>
+        <div class="achievements">
+          <h3>Hackathon Wins:</h3>
+          <div class="hackathon-carousel">
+            <div class="hackathon-cards">
+              <div class="hackathon-card">
+                <h4>Zenith Transit</h4>
+                <img src="zenith-transit.png" alt="Zenith Transit Screenshot" />
+                <a href="https://devpost.com/software/zenith-transit"
+                  >View Project →</a
+                >
+              </div>
+              <div class="hackathon-card">
+                <h4>New Year Cafeteria</h4>
+                <img src="Newyr.png" alt="New Year Cafeteria Screenshot" />
+                <a href="https://devpost.com/software/new-year-meal-cafeteria"
+                  >View Project →</a
+                >
+              </div>
+            </div>
+            <button class="carousel-arrow carousel-prev">←</button>
+            <button class="carousel-arrow carousel-next">→</button>
+            <div class="carousel-dots">
+              <span class="carousel-dot active"></span>
+              <span class="carousel-dot"></span>
+            </div>
+          </div>
+
+          <h3>
+            <button
+              class="collapsible"
+              id="awards-collapsible"
+              aria-expanded="false"
+            >
+              <span class="arrow">▶</span>
+              <span id="awards-title">Awards and Scholarships:</span>
+            </button>
+          </h3>
+          <div class="collapsible-content" id="awards-content">
+            <div class="award-item">
+              <button class="award-toggle" type="button">
+                <span class="arrow">▶</span>University of Alberta International
+                Country Scholarship
+              </button>
+              <div class="award-details">
+                Awarded for outstanding academic achievement and leadership as
+                an international student at the University of Alberta.
+              </div>
+            </div>
+            <div class="award-item">
+              <button class="award-toggle" type="button">
+                <span class="arrow">▶</span>International Student Scholarship -
+                issued by UoA
+              </button>
+              <div class="award-details">
+                Granted to top-performing international students for academic
+                excellence at the University of Alberta.
+              </div>
+            </div>
+            <div class="award-item">
+              <button class="award-toggle" type="button">
+                <span class="arrow">▶</span>DEPUTY VICE-CHANCELLOR SCHOLARSHIP
+                FOR INTERNATIONAL STUDENTS
+                <img src="ubc-logo.png" alt="UBC Logo" class="award-uni-logo" />
+              </button>
+              <div class="award-details">
+                Prestigious scholarship awarded to select international students
+                at UBC for students who achieved a minimum of 80% in previous
+                year taking a minimum of 24 credits
+              </div>
+            </div>
+            <div class="award-item">
+              <button class="award-toggle" type="button">
+                <span class="arrow">▶</span>tuum est
+                <img src="ubc-logo.png" alt="UBC Logo" class="award-uni-logo" />
+              </button>
+              <div class="award-details">
+                Recognizes students who have demonstrated leadership,
+                innovation, and academic excellence at UBC.
+              </div>
+            </div>
+            <div class="award-item">
+              <button class="award-toggle" type="button">
+                <span class="arrow">▶</span>McHacks Travel Bursary - issued by
+                McGill
+              </button>
+              <div class="award-details">
+                Travel bursary provided to support participation in the McHacks
+                hackathon at McGill University. See project:
+                <a
+                  href="https://devpost.com/software/drink-service"
+                  target="_blank"
+                  rel="noopener"
+                  >Drink Service</a
+                >
+              </div>
+            </div>
+            <div class="award-item">
+              <button class="award-toggle" type="button">
+                <span class="arrow">▶</span>Concordia Merit Scholarship valued
+                at $10,000
+                <img
+                  src="concordia-logo.webp"
+                  alt="Concordia Logo"
+                  class="award-uni-logo"
+                />
+              </button>
+              <div class="award-details">
+                Awarded for academic excellence and research potential to
+                graduate students enrolled in research-based Master's or
+                Doctoral programs.Value: $5,000 – $10,000 (one academic year)
+              </div>
+            </div>
+            <div class="award-item">
+              <button class="award-toggle" type="button">
+                <span class="arrow">▶</span>Dr. Thomas Fevens (Supervisor's)
+                Research Grant and Faculty Research Support (per year)
+                <img
+                  src="concordia-logo.webp"
+                  alt="Concordia Logo"
+                  class="award-uni-logo"
+                />
+              </button>
+              <div class="award-details">
+                Graduate Research Funding – $11,500/year Concordia University –
+                Faculty of Engineering and Computer Science Annual financial
+                support provided through a combination of the Supervisor's
+                research grant and Faculty Research Support (FRS) program. Paid
+                in 26 installments over 12 months, contingent on full-time
+                enrollment, academic performance (minimum CGPA of 3.00), and
+                satisfactory research progress. Renewable annually based on
+                performance and funding availability.
+              </div>
+            </div>
+            <div class="award-item">
+              <button class="award-toggle" type="button">
+                <span class="arrow">▶</span>Database Web Development badge
+                <img src="ubc-logo.png" alt="UBC Logo" class="award-uni-logo" />
+              </button>
+              <div class="award-details">
+                The Database Web Development badge is awarded to a student with
+                one of the top web development projects (minimum 90% score) in
+                COSC 304 Introduction to Databases in a given year. The web
+                development project involves constructing an online store
+                similar to Amazon that sells products. The project involves
+                database design using UML, constructing the web site using
+                Node.js, Java, or PHP, writing a significant amount of SQL
+                embedded in code, and documenting the system. The project also
+                enhances team skills and communication to deliver the system in
+                a limited amount of time.
+              </div>
+            </div>
+          </div>
+
+          <h3>Research Experience:</h3>
+          <ul>
+            <li>
+              Undergraduate Research Assistant at CRN Lab, UBC – Worked on
+              computational neuroscience projects involving data analysis and
+              visualization (2023-2024).
+            </li>
+          </ul>
+
+          <h3>Papers Published:</h3>
+          <ul>
+            <li>Coming Soon...</li>
+          </ul>
+        </div>
+      </section>
     </div>
+
+    <script>
+      document.addEventListener("mousemove", (e) => {
+        createParticle(e.clientX, e.clientY);
+      });
+
+      function createParticle(x, y) {
+        const particle = document.createElement("div");
+        particle.className = "particle";
+        document.body.appendChild(particle);
+
+        const offsetX = (Math.random() - 0.5) * 20;
+        const offsetY = (Math.random() - 0.5) * 20;
+
+        particle.style.left = x + offsetX + "px";
+        particle.style.top = y + offsetY + "px";
+
+        setTimeout(() => {
+          particle.remove();
+        }, 1000);
+      }
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+
+      // Hackathon Carousel
+      const carousel = document.querySelector(".hackathon-cards");
+      const cards = document.querySelectorAll(".hackathon-card");
+      const prevBtn = document.querySelector(".carousel-prev");
+      const nextBtn = document.querySelector(".carousel-next");
+      const dots = document.querySelectorAll(".carousel-dot");
+      let currentIndex = 0;
+
+      function updateCarousel() {
+        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, index) => {
+          dot.classList.toggle("active", index === currentIndex);
+        });
+      }
+
+      prevBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+        updateCarousel();
+      });
+
+      nextBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % cards.length;
+        updateCarousel();
+      });
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+          currentIndex = index;
+          updateCarousel();
+        });
+      });
+
+      // Auto-advance carousel every 5 seconds
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % cards.length;
+        updateCarousel();
+      }, 5000);
+
+      // Language switching
+      const translations = {
+        en: {
+          about: "About Me",
+          projects: "Projects",
+          experiences: "Experiences, Awards and Papers",
+          hackathon: "Hackathon Wins:",
+          awards: "Awards and Scholarships:",
+          research: "Research Experience:",
+          papers: "Papers Published:",
+          greeting: `Greetings! My name is Muhammad Ashar, a young computer scientist who has experience in both hackathons and research and is hungry for more! I have completed my Bachelor's in Computer Science (Honours) from the University of British Columbia in 2025 and will be starting my Master's thesis at Concordia University. If you have any work for me, please <a href=\"mailto:iamashar995@gmail.com\">contact me</a>.`,
+        },
+        fr: {
+          about: "À propos de moi",
+          projects: "Projets",
+          experiences: "Expériences, Récompenses et Publications",
+          hackathon: "Victoires Hackathon :",
+          awards: "Prix et Bourses :",
+          research: "Expérience de Recherche :",
+          papers: "Articles Publiés :",
+          greeting: `Bonjour ! Je m'appelle Muhammad Ashar, un jeune informaticien ayant de l'expérience dans les hackathons et la recherche, avide d'en apprendre plus ! J'ai obtenu mon baccalauréat en informatique (avec distinction) à l'Université de la Colombie-Britannique en 2025 et je commencerai mon mémoire de maîtrise à l'Université Concordia. Si vous avez du travail pour moi, veuillez <a href=\"mailto:iamashar995@gmail.com\">me contacter</a>.`,
+        },
+        es: {
+          about: "Sobre mí",
+          projects: "Proyectos",
+          experiences: "Experiencias, Premios y Publicaciones",
+          hackathon: "Victorias en Hackathons:",
+          awards: "Premios y Becas:",
+          research: "Experiencia en Investigación:",
+          papers: "Artículos Publicados:",
+          greeting: `¡Saludos! Mi nombre es Muhammad Ashar, un joven científico informático con experiencia en hackathons e investigación y con ganas de aprender más. He completado mi licenciatura en Ciencias de la Computación (con honores) en la Universidad de Columbia Británica en 2025 y comenzaré mi tesis de maestría en la Universidad Concordia. Si tiene algún trabajo para mí, por favor <a href=\"mailto:iamashar995@gmail.com\">contácteme</a>.`,
+        },
+        zh: {
+          about: "关于我",
+          projects: "项目",
+          experiences: "经历、奖项与论文",
+          hackathon: "黑客松获奖：",
+          awards: "奖项与奖学金：",
+          research: "研究经历：",
+          papers: "已发表论文：",
+          greeting: `您好！我叫 Muhammad Ashar，是一名有黑客松和研究经验、渴望学习更多的年轻计算机科学家。我于2025年毕业于英属哥伦比亚大学计算机科学荣誉学士，并即将在康考迪亚大学开始我的硕士论文。如果您有任何工作机会，请 <a href=\"mailto:iamashar995@gmail.com\">联系我</a>。`,
+        },
+        hi: {
+          about: "मेरे बारे में",
+          projects: "परियोजनाएँ",
+          experiences: "अनुभव, पुरस्कार और शोध पत्र",
+          hackathon: "हैकथॉन जीतें:",
+          awards: "पुरस्कार और छात्रवृत्तियाँ:",
+          research: "अनुसंधान अनुभव:",
+          papers: "प्रकाशित शोध पत्र:",
+          greeting: `नमस्ते! मेरा नाम मुहम्मद अशर है, मैं एक युवा कंप्यूटर वैज्ञानिक हूँ जिसे हैकथॉन और अनुसंधान का अनुभव है और जो और अधिक सीखने के लिए उत्सुक है! मैंने 2025 में ब्रिटिश कोलंबिया विश्वविद्यालय से कंप्यूटर साइंस (ऑनर्स) में स्नातक की डिग्री पूरी की है और अब मैं कंकॉर्डिया विश्वविद्यालय में अपनी मास्टर्स थीसिस शुरू करने जा रहा हूँ। यदि आपके पास मेरे लिए कोई काम है, तो कृपया <a href=\"mailto:iamashar995@gmail.com\">संपर्क करें</a>.`,
+        },
+      };
+
+      function setLanguage(lang) {
+        document.getElementById("about-title").textContent =
+          translations[lang].about;
+        document.querySelector("#projects h2").textContent =
+          translations[lang].projects;
+        document.querySelector("#experiences h2").textContent =
+          translations[lang].experiences;
+        document.querySelector(
+          "#experiences .achievements h3:nth-of-type(1)"
+        ).textContent = translations[lang].hackathon;
+        document.querySelector(
+          "#experiences .achievements h3:nth-of-type(2)"
+        ).textContent = translations[lang].awards;
+        document.querySelector(
+          "#experiences .achievements h3:nth-of-type(3)"
+        ).textContent = translations[lang].research;
+        document.querySelector(
+          "#experiences .achievements h3:nth-of-type(4)"
+        ).textContent = translations[lang].papers;
+        document.querySelector("#about p").innerHTML =
+          translations[lang].greeting;
+      }
+
+      document
+        .getElementById("language-select")
+        .addEventListener("change", function () {
+          setLanguage(this.value);
+        });
+
+      // Collapsible Awards and Scholarships
+      const awardsCollapsible = document.getElementById("awards-collapsible");
+      const awardsContent = document.getElementById("awards-content");
+      awardsCollapsible.addEventListener("click", function () {
+        const isOpen = awardsContent.classList.toggle("open");
+        awardsCollapsible.classList.toggle("open", isOpen);
+        awardsCollapsible.setAttribute("aria-expanded", isOpen);
+      });
+
+      // Individual award dropdowns
+      document.querySelectorAll(".award-toggle").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const details = this.nextElementSibling;
+          const isOpen = details.classList.toggle("open");
+          this.classList.toggle("open", isOpen);
+        });
+      });
+    </script>
   </body>
 </html>
