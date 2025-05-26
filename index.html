@@ -531,6 +531,45 @@
         max-height: 120px;
         margin-bottom: 8px;
       }
+
+      .judge-item {
+        margin-bottom: 10px;
+      }
+      .judge-toggle {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 1em;
+        font-weight: bold;
+        padding: 0;
+        outline: none;
+        transition: color 0.3s;
+      }
+      .judge-toggle .arrow {
+        display: inline-block;
+        margin-right: 8px;
+        transition: transform 0.3s;
+        font-size: 1.1em;
+      }
+      .judge-toggle.open .arrow {
+        transform: rotate(90deg);
+      }
+      .judge-details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-left: 24px;
+        color: #222;
+        font-weight: normal;
+        font-size: 0.98em;
+      }
+      .judge-details.open {
+        max-height: 120px;
+        margin-bottom: 8px;
+      }
     </style>
   </head>
   <body>
@@ -556,12 +595,16 @@
         <h2 id="about-title">About Me</h2>
         <img class="og" src="My.JPG" alt="My Picture" />
         <p>
-          Greetings! My name is Muhammad Ashar, a young computer scientist who
-          has experience in both hackathons and research and is hungry for more!
-          I have completed my Bachelor's in Computer Science (Honours) from the
-          University of British Columbia in 2025 and will be starting my
-          Master's thesis at Concordia University. If you have any work for me,
-          please
+          Hello! I'm Muhammad Ashar, a Computer Science graduate with a BSc
+          (Honours) from the University of British Columbia, Class of 2025. I
+          bring hands-on experience in both academic research and competitive
+          hackathons, and I am passionate about solving real-world problems
+          through technology. In Fall 2025, I will begin my Master's thesis at
+          Concordia University, where I aim to further deepen my expertise in
+          computer science and contribute to impactful research. I'm always open
+          to new opportunities—whether it's freelance work, research
+          collaborations, or innovative project ideas. If you'd like to connect
+          or collaborate, feel free to reach out!
           <a href="mailto:iamashar995@gmail.com">contact me</a>.
         </p>
         <div class="education-info">
@@ -601,6 +644,37 @@
               >
             </li>
           </ul>
+
+          <h3>Judging Experience:</h3>
+          <div class="judge-item">
+            <button class="judge-toggle" type="button">
+              <span class="arrow">▶</span>NW Hacks Mentor and Judge January 2024
+            </button>
+            <div class="judge-details">
+              Was the mentor and judge for Western Canada's largest hackathon. I
+              helped hackers around 174, complete their projects and later
+              judged their submissions.
+              <a href="https://stormhacks.com/" target="_blank" rel="noopener"
+                >View the hackathon →</a
+              >
+            </div>
+          </div>
+          <div class="judge-item">
+            <button class="judge-toggle" type="button">
+              <span class="arrow">▶</span>StormHacks Mentor and Judge May 2024
+            </button>
+            <div class="judge-details">
+              Was one of the judges and mentors for the annual StormHacks at
+              SFU.
+
+              <a
+                href="https://nwhacks-2024.devpost.com/"
+                target="_blank"
+                rel="noopener"
+                >View the hackathon →</a
+              >
+            </div>
+          </div>
         </div>
       </section>
 
@@ -949,7 +1023,7 @@
           awards: "Awards and Scholarships:",
           research: "Research Experience:",
           papers: "Papers Published:",
-          greeting: `Greetings! My name is Muhammad Ashar, a young computer scientist who has experience in both hackathons and research and is hungry for more! I have completed my Bachelor's in Computer Science (Honours) from the University of British Columbia in 2025 and will be starting my Master's thesis at Concordia University. If you have any work for me, please <a href=\"mailto:iamashar995@gmail.com\">contact me</a>.`,
+          greeting: `Hello! I'm Muhammad Ashar, a Computer Science graduate with a BSc (Honours) from the University of British Columbia, Class of 2025. I bring hands-on experience in both academic research and competitive hackathons, and I am passionate about solving real-world problems through technology. In Fall 2025, I will begin my Master's thesis at Concordia University, where I aim to further deepen my expertise in computer science and contribute to impactful research. I'm always open to new opportunities—whether it's freelance work, research collaborations, or innovative project ideas. If you'd like to connect or collaborate, feel free to reach out!`,
         },
         fr: {
           about: "À propos de moi",
@@ -959,7 +1033,7 @@
           awards: "Prix et Bourses :",
           research: "Expérience de Recherche :",
           papers: "Articles Publiés :",
-          greeting: `Bonjour ! Je m'appelle Muhammad Ashar, un jeune informaticien ayant de l'expérience dans les hackathons et la recherche, avide d'en apprendre plus ! J'ai obtenu mon baccalauréat en informatique (avec distinction) à l'Université de la Colombie-Britannique en 2025 et je commencerai mon mémoire de maîtrise à l'Université Concordia. Si vous avez du travail pour moi, veuillez <a href=\"mailto:iamashar995@gmail.com\">me contacter</a>.`,
+          greeting: `Bonjour ! Je suis Muhammad Ashar, diplômé en informatique avec un BSc (avec distinction) de l'Université de la Colombie-Britannique, promotion 2025. J'ai une expérience pratique en recherche académique et en hackathons compétitifs, et je suis passionné par la résolution de problèmes réels grâce à la technologie. À l'automne 2025, je commencerai mon mémoire de maîtrise à l'Université Concordia, où je vise à approfondir mon expertise en informatique et à contribuer à des recherches impactantes. Je suis toujours ouvert à de nouvelles opportunités—que ce soit du travail indépendant, des collaborations de recherche ou des idées de projets innovants. Si vous souhaitez vous connecter ou collaborer, n'hésitez pas à me contacter !`,
         },
         es: {
           about: "Sobre mí",
@@ -969,7 +1043,7 @@
           awards: "Premios y Becas:",
           research: "Experiencia en Investigación:",
           papers: "Artículos Publicados:",
-          greeting: `¡Saludos! Mi nombre es Muhammad Ashar, un joven científico informático con experiencia en hackathons e investigación y con ganas de aprender más. He completado mi licenciatura en Ciencias de la Computación (con honores) en la Universidad de Columbia Británica en 2025 y comenzaré mi tesis de maestría en la Universidad Concordia. Si tiene algún trabajo para mí, por favor <a href=\"mailto:iamashar995@gmail.com\">contácteme</a>.`,
+          greeting: `¡Hola! Soy Muhammad Ashar, graduado en Ciencias de la Computación con un BSc (con honores) de la Universidad de Columbia Británica, promoción 2025. Tengo experiencia práctica tanto en investigación académica como en hackathons competitivos, y me apasiona resolver problemas del mundo real a través de la tecnología. En el otoño de 2025, comenzaré mi tesis de maestría en la Universidad Concordia, donde aspiro a profundizar mi experiencia en ciencias de la computación y contribuir a investigaciones impactantes. Siempre estoy abierto a nuevas oportunidades—ya sea trabajo independiente, colaboraciones de investigación o ideas de proyectos innovadores. Si deseas conectarte o colaborar, ¡no dudes en contactarme!`,
         },
         zh: {
           about: "关于我",
@@ -979,7 +1053,7 @@
           awards: "奖项与奖学金：",
           research: "研究经历：",
           papers: "已发表论文：",
-          greeting: `您好！我叫 Muhammad Ashar，是一名有黑客松和研究经验、渴望学习更多的年轻计算机科学家。我于2025年毕业于英属哥伦比亚大学计算机科学荣誉学士，并即将在康考迪亚大学开始我的硕士论文。如果您有任何工作机会，请 <a href=\"mailto:iamashar995@gmail.com\">联系我</a>。`,
+          greeting: `你好！我是 Muhammad Ashar，英属哥伦比亚大学计算机科学荣誉学士，2025届毕业生。我在学术研究和竞技黑客松方面都有实践经验，热衷于通过技术解决现实世界的问题。2025年秋季，我将在康考迪亚大学开始我的硕士论文，旨在进一步深化我在计算机科学方面的专业知识，并为有影响力的研究做出贡献。我始终对新机会持开放态度——无论是自由职业、研究合作还是创新项目想法。如果你想联系或合作，请随时联系我！`,
         },
         hi: {
           about: "मेरे बारे में",
@@ -989,7 +1063,7 @@
           awards: "पुरस्कार और छात्रवृत्तियाँ:",
           research: "अनुसंधान अनुभव:",
           papers: "प्रकाशित शोध पत्र:",
-          greeting: `नमस्ते! मेरा नाम मुहम्मद अशर है, मैं एक युवा कंप्यूटर वैज्ञानिक हूँ जिसे हैकथॉन और अनुसंधान का अनुभव है और जो और अधिक सीखने के लिए उत्सुक है! मैंने 2025 में ब्रिटिश कोलंबिया विश्वविद्यालय से कंप्यूटर साइंस (ऑनर्स) में स्नातक की डिग्री पूरी की है और अब मैं कंकॉर्डिया विश्वविद्यालय में अपनी मास्टर्स थीसिस शुरू करने जा रहा हूँ। यदि आपके पास मेरे लिए कोई काम है, तो कृपया <a href=\"mailto:iamashar995@gmail.com\">संपर्क करें</a>.`,
+          greeting: `नमस्ते! मैं मुहम्मद अशर हूँ, ब्रिटिश कोलंबिया विश्वविद्यालय से कंप्यूटर साइंस में ऑनर्स के साथ स्नातक, 2025 बैच। मेरे पास अकादमिक अनुसंधान और प्रतिस्पर्धी हैकथॉन दोनों में व्यावहारिक अनुभव है, और मैं प्रौद्योगिकी के माध्यम से वास्तविक दुनिया की समस्याओं को हल करने के लिए उत्सुक हूँ। 2025 के पतझड़ में, मैं कंकॉर्डिया विश्वविद्यालय में अपनी मास्टर्स थीसिस शुरू करूंगा, जहां मैं कंप्यूटर विज्ञान में अपनी विशेषज्ञता को और गहरा करना चाहता हूँ और प्रभावशाली अनुसंधान में योगदान देना चाहता हूँ। मैं हमेशा नए अवसरों के लिए खुला हूँ—चाहे वह फ्रीलांस काम हो, अनुसंधान सहयोग हो, या नवीन परियोजना विचार हों। यदि आप जुड़ना या सहयोग करना चाहते हैं, तो संपर्क करने में संकोच न करें!`,
         },
       };
 
@@ -1042,6 +1116,15 @@
 
       // Individual research dropdowns
       document.querySelectorAll(".research-toggle").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const details = this.nextElementSibling;
+          const isOpen = details.classList.toggle("open");
+          this.classList.toggle("open", isOpen);
+        });
+      });
+
+      // Individual judge dropdowns
+      document.querySelectorAll(".judge-toggle").forEach((btn) => {
         btn.addEventListener("click", function () {
           const details = this.nextElementSibling;
           const isOpen = details.classList.toggle("open");
