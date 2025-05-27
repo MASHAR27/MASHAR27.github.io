@@ -6,25 +6,445 @@
     <title>Travel</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(-45deg, #2c3e50, #e74c3c, #3498db, #2ecc71);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .tab-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        text-align: center;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+      }
+
+      .tab-menu ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .tab-menu a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .tab-menu a:hover {
+        background: #1cbcac;
+        color: white !important;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      section {
+        min-height: 100vh;
+        padding: 80px 20px 20px;
+        scroll-margin-top: 60px;
+      }
+
+      .section-content {
+        background: linear-gradient(
+          -45deg,
+          rgba(255, 255, 255, 0.9),
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.85)
+        );
+        background-size: 400% 400%;
+        animation: sectionGradient 8s ease infinite;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 20px 0;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      @keyframes sectionGradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .language-dropdown {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        z-index: 2000;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        padding: 6px 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      .language-dropdown select {
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+        background: #fff;
+        color: #333;
+        transition: border 0.2s;
+      }
+
+      .language-dropdown select:focus {
+        border: 1.5px solid #1cbcac;
+        outline: none;
+      }
+
+      .cloud {
+        position: absolute;
+        background: white;
+        border-radius: 50px;
+        opacity: 0.8;
+        animation: float linear infinite;
+      }
+
+      .cloud:before,
+      .cloud:after {
+        content: "";
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+      }
+
+      .cloud:before {
+        width: 50%;
+        height: 100%;
+        top: -50%;
+        left: 25%;
+      }
+
+      .cloud:after {
+        width: 30%;
+        height: 60%;
+        top: -30%;
+        left: 10%;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100vw);
+        }
+      }
+
+      .airplane {
+        position: fixed;
+        pointer-events: none;
+        width: 20px;
+        height: 20px;
+        background: #1cbcac;
+        clip-path: polygon(0% 50%, 100% 0%, 100% 100%);
+        transform: rotate(45deg);
+        animation: fly 1s ease-out forwards;
+        z-index: 1000;
+      }
+
+      @keyframes fly {
+        0% {
+          transform: rotate(45deg) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: rotate(45deg) translateY(-100px) scale(0);
+          opacity: 0;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="map" style="height: 500px; width: 100%"></div>
+    <div class="language-dropdown">
+      <select id="language-select" aria-label="Select language">
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="hi">🇮🇳 हिन्दी</option>
+      </select>
+    </div>
 
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Visited Countries Map</title>
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet/dist/leaflet.css"
-        />
-        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-      </head>
-      <body>
-        <h1>Countries I Have Visited</h1>
-        <div id="map" style="height: 500px; width: 100%"></div>
+    <nav class="tab-menu">
+      <ul>
+        <li><a href="index.html#about">About Me 👨🏾</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#experiences">Professional Experience 👨🏾‍💻</a></li>
+        <li><a href="travel.html">Travel Experiences ✈️</a></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <section class="section-content">
+        <center><h1>Countries I Have Visited</h1></center>
+
+        <div class="map-stats">
+          <div class="counter">
+            <span id="visited-count">19</span> out of
+            <span id="total-count">195</span> countries visited
+          </div>
+        </div>
+
+        <div
+          id="map"
+          style="height: 500px; width: 100%; margin-top: 20px"
+        ></div>
+
+        <div class="countries-list">
+          <h3>North America</h3>
+          <ul>
+            <li>Canada 🇨🇦</li>
+            <li>United States 🇺🇸</li>
+          </ul>
+
+          <h3>Europe</h3>
+          <ul>
+            <li>France 🇫🇷</li>
+            <li>Belgium 🇧🇪</li>
+            <li>Netherlands 🇳🇱</li>
+            <li>Germany 🇩🇪</li>
+            <li>Austria 🇦🇹</li>
+            <li>Switzerland 🇨🇭</li>
+            <li>Italy 🇮🇹</li>
+            <li>Vatican City 🇻🇦</li>
+          </ul>
+
+          <h3>Asia</h3>
+          <ul>
+            <li>Pakistan 🇵🇰</li>
+            <li>Oman 🇴🇲</li>
+            <li>United Arab Emirates 🇦🇪</li>
+            <li>Turkey 🇹🇷</li>
+            <li>Thailand 🇹🇭</li>
+            <li>Malaysia 🇲🇾</li>
+            <li>Singapore 🇸🇬</li>
+            <li>Sri Lanka 🇱🇰</li>
+            <li>Georgia 🇬🇪</li>
+          </ul>
+        </div>
+
+        <div class="travel-carousel">
+          <h2>Travel Memories</h2>
+          <div class="carousel-container">
+            <button class="carousel-arrow prev">←</button>
+            <div class="carousel-track">
+              <div class="carousel-slide">
+                <img src="OMAN.JPG" alt="Oman" />
+                <div class="country-label">Oman 🇴🇲</div>
+              </div>
+              <div class="carousel-slide">
+                <img src="Singaporepic.JPG" alt="Singapore" />
+                <div class="country-label">Singapore 🇸🇬</div>
+              </div>
+              <div class="carousel-slide">
+                <img src="can.JPG" alt="Canada" />
+                <div class="country-label">Canada 🇨🇦</div>
+              </div>
+              <div class="carousel-slide">
+                <img src="TKY.JPG" alt="Turkey" />
+                <div class="country-label">Turkey 🇹🇷</div>
+              </div>
+            </div>
+            <button class="carousel-arrow next">→</button>
+          </div>
+          <div class="carousel-dots"></div>
+        </div>
+
+        <style>
+          .map-stats {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          }
+
+          .counter {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+          }
+
+          #visited-count {
+            color: #1cbcac;
+          }
+
+          .countries-list {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          }
+
+          .countries-list h3 {
+            color: #333;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+          }
+
+          .countries-list ul {
+            list-style-type: none;
+            padding-left: 20px;
+          }
+
+          .countries-list li {
+            margin: 8px 0;
+            font-size: 1.1em;
+            color: #444;
+          }
+
+          .travel-carousel {
+            margin: 40px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+          }
+
+          .travel-carousel h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+          }
+
+          .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+          }
+
+          .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+          }
+
+          .carousel-slide {
+            min-width: 100%;
+            position: relative;
+          }
+
+          .carousel-slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+          }
+
+          .country-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+          }
+
+          .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            color: #333;
+            transition: all 0.3s ease;
+            z-index: 2;
+          }
+
+          .carousel-arrow:hover {
+            background: #1cbcac;
+            color: white;
+          }
+
+          .carousel-arrow.prev {
+            left: 10px;
+          }
+
+          .carousel-arrow.next {
+            right: 10px;
+          }
+
+          .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+          }
+
+          .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
+
+          .carousel-dot.active {
+            background: #1cbcac;
+            transform: scale(1.2);
+          }
+        </style>
 
         <script>
+          // Original map with markers
           var map = L.map("map").setView([20, 0], 2);
 
           L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -162,8 +582,102 @@
               .addTo(map)
               .bindPopup(popupContent);
           });
+
+          // Update counter
+          document.getElementById("visited-count").textContent =
+            visitedCountries.length;
+          document.getElementById("total-count").textContent = "195"; // UN recognized countries
+
+          // Carousel functionality
+          const track = document.querySelector(".carousel-track");
+          const slides = document.querySelectorAll(".carousel-slide");
+          const prevButton = document.querySelector(".carousel-arrow.prev");
+          const nextButton = document.querySelector(".carousel-arrow.next");
+          const dotsContainer = document.querySelector(".carousel-dots");
+          let currentIndex = 0;
+
+          // Create dots
+          slides.forEach((_, index) => {
+            const dot = document.createElement("div");
+            dot.classList.add("carousel-dot");
+            if (index === 0) dot.classList.add("active");
+            dot.addEventListener("click", () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+          });
+
+          const dots = document.querySelectorAll(".carousel-dot");
+
+          function updateCarousel() {
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach((dot, index) => {
+              dot.classList.toggle("active", index === currentIndex);
+            });
+          }
+
+          function goToSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+          }
+
+          prevButton.addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateCarousel();
+          });
+
+          nextButton.addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel();
+          });
+
+          // Auto-advance carousel every 5 seconds
+          setInterval(() => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel();
+          }, 5000);
         </script>
-      </body>
-    </html>
+
+        <script>
+          // Create clouds
+          function createClouds() {
+            const cloudCount = 5;
+            for (let i = 0; i < cloudCount; i++) {
+              const cloud = document.createElement("div");
+              cloud.className = "cloud";
+              cloud.style.width = Math.random() * 100 + 50 + "px";
+              cloud.style.height = Math.random() * 30 + 20 + "px";
+              cloud.style.top = Math.random() * 50 + "%";
+              cloud.style.animationDuration = Math.random() * 20 + 20 + "s";
+              cloud.style.animationDelay = Math.random() * 10 + "s";
+              document.body.appendChild(cloud);
+            }
+          }
+
+          // Create airplane cursor particles
+          function createAirplane(x, y) {
+            const airplane = document.createElement("div");
+            airplane.className = "airplane";
+            airplane.style.left = x + "px";
+            airplane.style.top = y + "px";
+            document.body.appendChild(airplane);
+
+            // Remove the airplane after animation
+            setTimeout(() => {
+              airplane.remove();
+            }, 1000);
+          }
+
+          // Initialize clouds
+          createClouds();
+
+          // Add mousemove event listener for airplanes
+          document.addEventListener("mousemove", (e) => {
+            if (Math.random() < 0.3) {
+              // Only create airplane 30% of the time to prevent too many
+              createAirplane(e.clientX, e.clientY);
+            }
+          });
+        </script>
+      </section>
+    </div>
   </body>
 </html>
